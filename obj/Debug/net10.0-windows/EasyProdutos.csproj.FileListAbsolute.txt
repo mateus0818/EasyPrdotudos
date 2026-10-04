@@ -5,3 +5,4 @@ C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\obj\Debug\net10
 C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\obj\Debug\net10.0-windows\EasyProdutos.AssemblyInfo.cs
 C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\obj\Debug\net10.0-windows\EasyProdutos.csproj.CoreCompileInputs.cache
 C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\obj\Debug\net10.0-windows\EasyProdutos.sourcelink.json
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\obj\Debug\net10.0-windows\EasyProdutos.csproj.AssemblyReference.cache
