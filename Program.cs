@@ -162,7 +162,14 @@ namespace MeuProjeto
 
             while (continuar)
             {
-                Console.Clear();
+                try
+                {
+                    Console.Clear();
+                }
+                catch (System.IO.IOException)
+                {
+                    // Ignorar exceção: console indisponível/handle inválido (ex.: saída redirecionada)
+                }
 
                 Console.WriteLine("O que deseja fazer?");
                 Console.WriteLine("1 - Cadastrar um produto");
