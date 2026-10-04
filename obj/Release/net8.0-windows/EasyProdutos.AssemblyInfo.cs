@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EasyProdutos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5f7c21165c316735a0df8b42171237d47a70813")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54e96fb38cd6438c5b0e8443ab6b7bc5eb7a24ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("EasyProdutos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EasyProdutos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
