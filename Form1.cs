@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+
 
 namespace MeuProjeto
 {
@@ -14,6 +16,9 @@ namespace MeuProjeto
 
     public static class Program
     {
+        private static string linkBanco = "Server=localhost;Database=easyprodutos;Uid=root;Pwd=;";
+
+
         // 2. Função responsável por ler os dados e retornar o produto
         public static produto CriarNovoProduto()
         {
@@ -36,50 +41,65 @@ namespace MeuProjeto
             return pdt;
         }
 
-        // Função responsável por buscar o produto pelo nome
-        public static void ConsultarProduto(List<produto> produtos)
+        public static void ConsultarProduto() // <-- Sem parênteses cheios de listas!
         {
-            Console.Clear();
-            Console.WriteLine("=== CONSULTA DE PRODUTO ===");
-            Console.Write("Digite o nome do produto que deseja pesquisar: ");
+            // O início continua igual: pede o nome para o Tião
+            Console.Write("Digite o nome do produto: ");
             string nomeBusca = Console.ReadLine() ?? "";
 
             bool encontrado = false;
 
-            foreach (produto p in produtos)
+            // 🛑 DAQUI PARA BAIXO TUDO MUDOU: Entra o código do Banco de Dados
+            using (MySqlConnection conexao = new MySqlConnection(linkBanco))
             {
-                if (p.nome.Equals(nomeBusca, StringComparison.OrdinalIgnoreCase))
+                conexao.Open(); // Abre o banco
+
+                // Criamos a pergunta em SQL para o MySQL buscar
+                string query = "SELECT nome, quantidade, preco FROM produtos WHERE nome = @nome";
+
+                using (MySqlCommand comando = new MySqlCommand(query, conexao))
                 {
-                    Console.WriteLine("\n--- Produto Encontrado! ---");
-                    Console.WriteLine($"Nome: {p.nome}");
-                    Console.WriteLine($"Quantidade em Estoque: {p.quantidade}");
-                    Console.WriteLine($"Preço: R$ {p.preco:F2}");
-                    Console.WriteLine("----------------------------");
-                    encontrado = true;
+                    comando.Parameters.AddWithValue("@nome", nomeBusca); // Passa o nome digitado
 
-                    Console.WriteLine("\nPressione qualquer tecla para voltar ao menu...");
-                    Console.ReadKey();
-                    break;
+                    // O DataReader é o leitor que pega a resposta do MySQL
+                    using (MySqlDataReader dados = comando.ExecuteReader())
+                    {
+                        // Se o MySQL responder que achou a linha:
+                        if (dados.Read())
+                        {
+                            Console.WriteLine("\n--- Produto Encontrado no Banco! ---");
+                            // Puxamos os dados direto das colunas da tabela do XAMPP:
+                            Console.WriteLine($"Nome: {dados["nome"]}");
+                            Console.WriteLine($"Quantidade em Estoque: {dados["quantidade"]}");
+                            Console.WriteLine($"Preço: R$ {Convert.ToDouble(dados["preco"]):F2}");
+                            Console.WriteLine("----------------------------");
+
+                            encontrado = true;
+
+                            Console.WriteLine("\nPressione qualquer tecla para voltar ao menu...");
+                            Console.ReadKey();
+                        }
+                    }
                 }
-            }
+            } // O bloco 'using' fecha a conexão com o banco automaticamente aqui
 
+            // Se o MySQL vasculhou e não achou nada (encontrado continuou false)
             if (!encontrado)
             {
                 Console.WriteLine($"\nO produto '{nomeBusca}' não foi encontrado.");
                 Console.Write("Deseja cadastrar um produto agora? (S/N): ");
                 string resposta = Console.ReadLine() ?? "";
 
+                // Se o Tião digitar 'S' ou 's'
                 if (resposta.Equals("S", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.Clear();
 
-                    // CHAMANDO A SUA FUNÇÃO ORIGINIAL AQUI DENTRO!
+                    // 1. Roda a SUA função original de fazer as perguntas na tela
                     produto novo = CriarNovoProduto();
-                    produtos.Add(novo);
 
-                    Console.WriteLine($"\nProduto cadastrado com sucesso!");
-                    Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
-                    Console.ReadKey();
+                    // 2. Chama a nova função para gravar esse produto no MySQL do XAMPP
+                    SalvarNoBanco(novo);
                 }
                 else
                 {
@@ -90,7 +110,38 @@ namespace MeuProjeto
         }
 
 
+        public static void SalvarNoBanco(produto p)
+        {
+            // 1. Cria a ponte com o XAMPP usando a nossa string de conexão
+            using (MySqlConnection conexao = new MySqlConnection(linkBanco))
+            {
+                // 2. Abre a porta do banco de dados
+                conexao.Open();
+
+                // 3. Escreve o comando SQL de inserção (o mesmo que se usa no phpMyAdmin)
+                string query = "INSERT INTO produtos (nome, quantidade, preco) VALUES (@nome, @qtd, @preco)";
+
+                // 4. Prepara o comando para ser enviado de forma segura
+                using (MySqlCommand comando = new MySqlCommand(query, conexao))
+                {
+                    // 5. Vincula os dados da sua struct 'produto p' aos parâmetros do banco
+                    comando.Parameters.AddWithValue("@nome", p.nome);
+                    comando.Parameters.AddWithValue("@qtd", p.quantidade);
+                    comando.Parameters.AddWithValue("@preco", p.preco);
+
+                    // 6. Dá o "raiozinho" (executa o comando) para gravar no HD de verdade!
+                    comando.ExecuteNonQuery();
+                }
+            }
+
+            // 7. Avisa o Tião que deu certo
+            Console.WriteLine($"\nProduto '{p.nome}' salvo no banco de dados com sucesso!");
+            Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
+            Console.ReadKey();
+        }
+
         static int Main() { 
+
 
             List<produto> listaDeProdutos = new List<produto>();
         
@@ -108,6 +159,8 @@ namespace MeuProjeto
 
             while (continuar)
             {
+                Console.Clear();
+
                 Console.WriteLine("O que deseja fazer?");
                 Console.WriteLine("1 - Cadastrar um produto");
                 Console.WriteLine("2 - Consultar um produto");
@@ -120,11 +173,12 @@ namespace MeuProjeto
                     // 3. Chamando a função para criar um novo produto we e armazenando o resultado na variável p1
 
                     produto p1 = CriarNovoProduto();
-                    listaDeProdutos.Add(p1);
+                   
+                    SalvarNoBanco(p1);
                 }
                 else if (opcao == 2)
                 {
-                    ConsultarProduto(listaDeProdutos);
+                    ConsultarProduto();
                 }
                 else if (opcao == 3)
                 {
@@ -134,6 +188,8 @@ namespace MeuProjeto
                 else
                 {
                     Console.WriteLine("Opção inválida. Tente novamente.");
+                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                    Console.ReadKey();
                 }
 
             }
