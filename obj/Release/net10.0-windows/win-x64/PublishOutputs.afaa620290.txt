@@ -1,0 +1,17 @@
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\EasyProdutos.exe
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\EasyProdutos.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\EasyProdutos.deps.json
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\EasyProdutos.runtimeconfig.json
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\EasyProdutos.pdb
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\BouncyCastle.Cryptography.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\Google.Protobuf.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\K4os.Compression.LZ4.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\K4os.Compression.LZ4.Streams.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\K4os.Hash.xxHash.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\MySql.Data.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\ZstdSharp.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\comerr64.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\gssapi64.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\k5sprt64.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\krb5_64.dll
+C:\Users\usuario\Documents\EasyProduto\EasyProdutos\EasyProdutos\bin\Release\net10.0-windows\win-x64\publish\krbcc64.dll

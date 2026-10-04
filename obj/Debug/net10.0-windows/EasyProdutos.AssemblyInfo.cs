@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EasyProdutos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f3bc4f18a164c9384291fd2da3e4aa88f1b26e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c75486f6514a9f76fcfe206adb4fee070a6b4eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("EasyProdutos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EasyProdutos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

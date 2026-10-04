@@ -34,7 +34,7 @@ namespace EasyProdutos
                     }
                 }
 
-                // Em vez de Console.WriteLine, usamos uma caixinha de aviso na tela!
+                // Caixinha de aviso de sucesso na tela
                 MessageBox.Show($"Produto '{nome}' salvo no banco de dados com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -44,7 +44,6 @@ namespace EasyProdutos
         }
 
         // 2. O SEU BACK-END DE CONSULTAR (Adaptado para a Interface Gráfica)
-        // Esta função vai retornar 'true' se achar o produto ou 'false' se não achar
         public bool ConsultarProduto(string nomeBusca)
         {
             try
@@ -81,6 +80,50 @@ namespace EasyProdutos
             }
 
             return false; // Se chegou aqui, não encontrou
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+
+        // CORRIGIDO: Agora usa o nome correto 'textNome' que o seu designer criou
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string nomePesquisa = textNome.Text;
+
+            if (string.IsNullOrEmpty(nomePesquisa))
+            {
+                MessageBox.Show("Por favor, digite o nome do produto que deseja buscar!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            ConsultarProduto(nomePesquisa);
+        }
+
+        // CORRIGIDO: Mapeado para ler 'textNome', 'textQuantidade' e 'textPreço' sem dar erro
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            string nome = textNome.Text;
+
+            if (string.IsNullOrEmpty(nome))
+            {
+                MessageBox.Show("Por favor, digite o nome do produto!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int.TryParse(textQuantidade.Text, out int quantidade);
+            double.TryParse(textPreço.Text, out double preco);
+
+            SalvarNoBanco(nome, quantidade, preco);
+
+            // Limpa os campos da tela usando os nomes certos
+            textNome.Clear();
+            textQuantidade.Clear();
+            textPreço.Clear();
         }
     }
 }
