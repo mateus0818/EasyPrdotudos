@@ -23,6 +23,19 @@ namespace EasyProdutos
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.FromArgb(240, 240, 240);
 
+            // COLOCAMOS A LINHA DO ÍCONE NO LUGAR CORRETO (Dentro do Form1):
+            try
+            {
+                if (System.IO.File.Exists("logo.ico"))
+                {
+                    this.Icon = new Icon("logo.ico");
+                }
+            }
+            catch (Exception)
+            {
+                // Se der problema no formato do arquivo, o app abre normal sem quebrar
+            }
+
             // 2. Título Principal
             Label lblTitulo = new Label();
             lblTitulo.Text = "Cadastro & Consulta de Produtos";
@@ -57,7 +70,7 @@ namespace EasyProdutos
             btnSalvar.Size = new Size(180, 40);
             btnSalvar.BackColor = Color.FromArgb(40, 167, 69); // Verde
             btnSalvar.ForeColor = Color.White;
-            btnSalvar.Click += BtnSalvar_Click; // Vincula a ação do clique
+            btnSalvar.Click += BtnSalvar_Click;
             this.Controls.Add(btnSalvar);
 
             // 7. Botão Consultar (Buscar no Banco)
@@ -68,7 +81,7 @@ namespace EasyProdutos
             btnConsultar.Size = new Size(180, 40);
             btnConsultar.BackColor = Color.FromArgb(0, 123, 255); // Azul
             btnConsultar.ForeColor = Color.White;
-            btnConsultar.Click += BtnConsultar_Click; // Vincula a ação do clique
+            btnConsultar.Click += BtnConsultar_Click;
             this.Controls.Add(btnConsultar);
         }
 
@@ -77,7 +90,7 @@ namespace EasyProdutos
         {
             if (string.IsNullOrWhiteSpace(txtNome.Text))
             {
-                MessageBox.Show("Por favor, digite o nome do produto!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, digite o nome do product!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -103,7 +116,6 @@ namespace EasyProdutos
 
                 MessageBox.Show($"Produto '{txtNome.Text}' cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Limpa os campos após salvar
                 txtNome.Clear();
                 txtQuantidade.Clear();
                 txtPreco.Clear();
@@ -138,7 +150,6 @@ namespace EasyProdutos
                         {
                             if (dados.Read())
                             {
-                                // Se achar o produto, preenche as caixas de texto automaticamente com os valores vindos do MySQL
                                 txtQuantidade.Text = dados["quantidade"].ToString();
                                 txtPreco.Text = Convert.ToDouble(dados["preco"]).ToString("F2");
 
